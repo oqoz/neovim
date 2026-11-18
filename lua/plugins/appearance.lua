@@ -1,29 +1,9 @@
 return {
   {
-    "craftzdog/solarized-osaka.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {
-      transparent = true,
-      styles = {
-        sidebars = "transparent",
-        -- floats = "transparent",
-      },
-    },
-    config = function(_, opts)
-      -- require("solarized-osaka").setup(opts)
-      -- vim.cmd.colorscheme("solarized-osaka")
-    end,
-  },
-  {
-    "folke/tokyonight.nvim",
-    enabled = false,
-  },
-  {
     "miikanissi/modus-themes.nvim",
     priority = 1000,
     opts = {
-      style = "auto", -- this automatically loads colorscheme depending on system theme
+      style = "auto", -- Follow Neovim's light/dark background.
       transparent = true,
       line_nr_column_background = false,
       sign_column_background = false,

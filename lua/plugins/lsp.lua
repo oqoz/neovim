@@ -1,8 +1,7 @@
 return {
   {
     "saghen/blink.cmp",
-    -- v2 is still under active development and requires blink.lib.
-    -- Keep the stable v1 behavior that was used before removing LazyVim.
+    -- Keep completion on the stable v1 API.
     version = "1.*",
     opts = {
       keymap = {
@@ -16,33 +15,7 @@ return {
       "saghen/blink.cmp",
     },
     config = function()
-      vim.diagnostic.config({
-        virtual_lines = false,
-        signs = {
-          -- Use the same diagnostic icons as LazyVim, without depending on it.
-          text = {
-            [vim.diagnostic.severity.ERROR] = " ",
-            [vim.diagnostic.severity.WARN] = " ",
-            [vim.diagnostic.severity.INFO] = " ",
-            [vim.diagnostic.severity.HINT] = " ",
-          },
-          numhl = {
-            [vim.diagnostic.severity.ERROR] = "DiagnosticLineNrError",
-            [vim.diagnostic.severity.WARN] = "DiagnosticLineNrWarn",
-            [vim.diagnostic.severity.INFO] = "DiagnosticLineNrInfo",
-            [vim.diagnostic.severity.HINT] = "DiagnosticLineNrHint",
-          },
-        },
-        virtual_text = {
-          spacing = 2,
-          virt_text_pos = "eol",
-          -- Keep source and diagnostic codes in the float, not beside the code.
-          prefix = " <-",
-          suffix = " ",
-          source = false,
-        },
-        severity_sort = true,
-      })
+      require("config.diagnostics").setup()
 
       -- Share completion support with Python and servers installed through Mason.
       vim.lsp.config("*", {
@@ -120,10 +93,6 @@ return {
         "ty",
         "ruff",
       })
-
-      -- LazyVim's opts.servers["*"].keys override is no longer needed:
-      -- plain nvim-lspconfig does not install LazyVim's insert-mode <C-k> map.
-      -- Alternative Python servers are excluded from Mason auto-enable below.
     end,
   },
   {
@@ -147,7 +116,7 @@ return {
           "ty",
           "ruff",
           "ruff_lsp",
-          -- Keep the previous choice of ty instead of these Python servers.
+          -- Avoid enabling competing Python servers.
           "pyright",
           "basedpyright",
         },

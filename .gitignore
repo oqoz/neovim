@@ -6,3 +6,9 @@ debug
 foo.*
 *.log
 data
+
+# Local agent state and private workspace mounts.
+.serena/
+.agents/
+.codex/
+.aws/

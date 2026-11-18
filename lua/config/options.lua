@@ -1,10 +1,4 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
-
--- load python lang servers
-vim.g.lazyvim_python_lsp = "ty"
-vim.g.lazyvim_python_ruff = "ruff"
+-- Editor defaults, loaded by init.lua before plugin initialization.
 
 local uv_tool_bin = vim.fn.expand("~/.local/bin")
 if not vim.env.PATH:find(uv_tool_bin, 1, true) then
@@ -15,18 +9,18 @@ if vim.env.ZELLIJ ~= nil then
   vim.g.clipboard = "osc52"
 end
 
--- disable trouble in lualine
-vim.g.trouble_lualine = false
+-- Use GUI colors for the theme and bufferline.
+vim.opt.termguicolors = true
 
--- vim options
 -- Ask before abandoning modified buffers; saving remains an explicit action.
 vim.opt.confirm = true
 vim.opt.autowrite = false
 vim.opt.autowriteall = false
 
--- Backspace removes spaces one at a time, not an indentation step.
-vim.opt.smarttab = false
-vim.opt.softtabstop = 0
+-- Fallback indentation; filetype plugins and EditorConfig can override it.
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = -1
 
 -- Current line: absolute number. Other lines: distance from the cursor.
 vim.opt.number = true
@@ -34,8 +28,12 @@ vim.opt.relativenumber = true
 -- Cursor line/column fallback; lualine displays these via its location component.
 vim.opt.ruler = true
 
--- Minimum non-zero mouse-wheel movement per event (lines / columns).
-vim.opt.mousescroll = "ver:1,hor:1"
+-- Disable Neovim mouse handling in every mode.
+vim.opt.mouse = ""
+
+-- Ctrl+d/u distance. Keep the configured value for window resize restoration.
+vim.opt.scroll = 6
+vim.g.scroll_lines = vim.o.scroll
 
 vim.opt.wrap = true
 vim.opt.linebreak = false
